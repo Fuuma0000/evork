@@ -35,4 +35,7 @@ migrateup:
 migratedown:
 	migrate -path db/migration -database "mysql://root:password@tcp(localhost:3306)/evork" -verbose down
 
-PHONY: up down restart reup rmi ps logs logsf mysql migrateup migratedown
+sqlc:
+	sqlc generate
+
+PHONY: up down restart reup rmi ps logs logsf mysql migrateup migratedown sqlc

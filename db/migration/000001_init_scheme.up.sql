@@ -62,6 +62,7 @@ CREATE TABLE `technology` (
 
 CREATE TABLE `user` (
   `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `firebase_uid` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `username` VARCHAR(50),
   `affiliation_id` INTEGER,
