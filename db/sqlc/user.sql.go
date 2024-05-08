@@ -11,19 +11,45 @@ import (
 )
 
 const createUser = `-- name: CreateUser :execresult
-INSERT INTO user (
+INSERT INTO users (
   firebase_uid, email, username, affiliation_id, enrollment_year, graduation_year, is_job_hunt_completed, self_introduction, icon_url, show_profile_in_public_event, show_profile_in_shared_url
 ) VALUES (
-  $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11
+  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
 )
 `
 
-func (q *Queries) CreateUser(ctx context.Context) (sql.Result, error) {
-	return q.db.ExecContext(ctx, createUser)
+type CreateUserParams struct {
+	FirebaseUid              string         `json:"firebase_uid"`
+	Email                    string         `json:"email"`
+	Username                 sql.NullString `json:"username"`
+	AffiliationID            sql.NullInt32  `json:"affiliation_id"`
+	EnrollmentYear           sql.NullInt32  `json:"enrollment_year"`
+	GraduationYear           sql.NullInt32  `json:"graduation_year"`
+	IsJobHuntCompleted       sql.NullBool   `json:"is_job_hunt_completed"`
+	SelfIntroduction         sql.NullString `json:"self_introduction"`
+	IconUrl                  sql.NullString `json:"icon_url"`
+	ShowProfileInPublicEvent sql.NullBool   `json:"show_profile_in_public_event"`
+	ShowProfileInSharedUrl   sql.NullBool   `json:"show_profile_in_shared_url"`
+}
+
+func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (sql.Result, error) {
+	return q.db.ExecContext(ctx, createUser,
+		arg.FirebaseUid,
+		arg.Email,
+		arg.Username,
+		arg.AffiliationID,
+		arg.EnrollmentYear,
+		arg.GraduationYear,
+		arg.IsJobHuntCompleted,
+		arg.SelfIntroduction,
+		arg.IconUrl,
+		arg.ShowProfileInPublicEvent,
+		arg.ShowProfileInSharedUrl,
+	)
 }
 
 const deleteUser = `-- name: DeleteUser :exec
-DELETE FROM user
+DELETE FROM users
 WHERE id = ?
 `
 
@@ -33,7 +59,7 @@ func (q *Queries) DeleteUser(ctx context.Context, id int32) error {
 }
 
 const getUser = `-- name: GetUser :one
-SELECT id, firebase_uid, email, username, affiliation_id, enrollment_year, graduation_year, is_job_hunt_completed, self_introduction, icon_url, show_profile_in_public_event, show_profile_in_shared_url, created_at, updated_at FROM user
+SELECT id, firebase_uid, email, username, affiliation_id, enrollment_year, graduation_year, is_job_hunt_completed, self_introduction, icon_url, show_profile_in_public_event, show_profile_in_shared_url, created_at, updated_at FROM users
 WHERE id = ? LIMIT 1
 `
 
@@ -60,7 +86,7 @@ func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
 }
 
 const listUsers = `-- name: ListUsers :many
-SELECT id, firebase_uid, email, username, affiliation_id, enrollment_year, graduation_year, is_job_hunt_completed, self_introduction, icon_url, show_profile_in_public_event, show_profile_in_shared_url, created_at, updated_at FROM user
+SELECT id, firebase_uid, email, username, affiliation_id, enrollment_year, graduation_year, is_job_hunt_completed, self_introduction, icon_url, show_profile_in_public_event, show_profile_in_shared_url, created_at, updated_at FROM users
 `
 
 func (q *Queries) ListUsers(ctx context.Context) ([]User, error) {
