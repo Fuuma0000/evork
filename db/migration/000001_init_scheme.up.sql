@@ -1,7 +1,7 @@
 # ブックマークテーブル (ユーザーが作品をブックマークする)
 CREATE TABLE `bookmarks` (
-  `work_id` INTEGER NOT NULL,
   `user_id` INTEGER NOT NULL,
+  `work_id` INTEGER NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
 );
