@@ -19,10 +19,10 @@ CREATE TABLE `events` (
   `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `password` Varchar(255),
-  `is_requires_password` bool DEFAULT false,
+  `is_requires_password` BOOLEAN NOT NULL DEFAULT false,
   `start_at` TIMESTAMP,
   `end_at` TIMESTAMP,
-  `need_proofreading` bool DEFAULT false, # 校閲が必要かどうか
+  `need_proofreading` BOOLEAN NOT NULL DEFAULT false, # 校閲が必要かどうか
   `icon_url` VARCHAR(255),
   `description` TEXT,
   `detail` Text,
@@ -70,7 +70,7 @@ CREATE TABLE `users` (
   `affiliation_id` INTEGER UNSIGNED NOT NULL DEFAULT 1,
   `enrollment_year` INTEGER NOT NULL,
   `graduation_year` INTEGER NOT NULL,
-  `is_job_hunt_completed` BOOLEAN DEFAULT false,
+  `is_job_hunt_completed` BOOLEAN NOT NULL DEFAULT false,
   `self_introduction` TEXT NOT NULL DEFAULT '',
   `icon_url` VARCHAR(255),
   `show_profile_in_public_event` BOOLEAN NOT NULL DEFAULT false,
