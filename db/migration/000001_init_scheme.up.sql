@@ -2,16 +2,16 @@
 CREATE TABLE `bookmarks` (
   `user_id` INTEGER UNSIGNED NOT NULL,
   `work_id` INTEGER UNSIGNED NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 # 所属テーブル
 CREATE TABLE `affiliations` (
   `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 # イベントテーブル
@@ -26,38 +26,38 @@ CREATE TABLE `events` (
   `icon_url` VARCHAR(255),
   `description` TEXT,
   `detail` Text,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 # ジャンルテーブル
 CREATE TABLE `genres` (
   `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 # 職種テーブル
 CREATE TABLE `occupations` (
   `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE `authorities` (
   `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE `technologies` (
   `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 CREATE TABLE `users` (
@@ -73,16 +73,16 @@ CREATE TABLE `users` (
   `icon_url` VARCHAR(255),
   `show_profile_in_public_event` BOOLEAN DEFAULT false,
   `show_profile_in_shared_url` BOOLEAN DEFAULT false,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 # ユーザーと職種の中間テーブル
 CREATE TABLE `user_occupations` (
   `user_id` INTEGER UNSIGNED NOT NULL,
   `occupation_id` INTEGER UNSIGNED NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_id`, `occupation_id`)
 );
 
@@ -92,16 +92,16 @@ CREATE TABLE `user_urls` (
   `user_id` INTEGER UNSIGNED NOT NULL,
   `url_name` VARCHAR(30) NOT NULL,
   `url` VARCHAR(255) NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 # 作品テーブル
 CREATE TABLE `works` (
   `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `event_id` INTEGER UNSIGNED NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 # 作品データテーブル
@@ -117,16 +117,16 @@ CREATE TABLE `work_data` (
   `thumbnail_url` VARCHAR(255),
   `detail` TEXT,
   `is_approved` BOOLEAN NOT NULL DEFAULT false,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 # 作品データとジャンルの中間テーブル
 CREATE TABLE `work_data_genres` (
   `work_data_id` INTEGER UNSIGNED NOT NULL,
   `genre_id` INTEGER UNSIGNED NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`work_data_id`, `genre_id`)
 );
 
@@ -134,8 +134,8 @@ CREATE TABLE `work_data_genres` (
 CREATE TABLE `work_data_technologies` (
   `work_data_id` INTEGER UNSIGNED NOT NULL,
   `technology_id` INTEGER UNSIGNED NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`work_data_id`, `technology_id`)
 );
 
@@ -144,8 +144,8 @@ CREATE TABLE `work_data_users` (
   `work_data_id` INTEGER UNSIGNED NOT NULL,
   `user_id` INTEGER UNSIGNED NOT NULL,
   `role_explanation` VARCHAR(50),
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`work_data_id`, `user_id`)
 );
 
@@ -153,8 +153,8 @@ CREATE TABLE `work_data_users` (
 CREATE TABLE `tools` (
   `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 # イベントとユーザと権限の中間テーブル
@@ -162,8 +162,8 @@ CREATE TABLE `event_user_authorities` (
   `event_id` INTEGER UNSIGNED NOT NULL,
   `user_id` INTEGER UNSIGNED NOT NULL,
   `authority_id` INTEGER UNSIGNED NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`event_id`, `user_id`, `authority_id`)
 );
 
@@ -173,16 +173,16 @@ CREATE TABLE `work_data_images` (
   `work_data_id` INTEGER UNSIGNED NOT NULL,
   `url` VARCHAR(255),
   `order` TINYINT,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 # 作品データと使用ツールの中間テーブル
 CREATE TABLE `work_data_tools` (
   `work_data_id` INTEGER UNSIGNED NOT NULL,
   `tool_id` INTEGER UNSIGNED NOT NULL,
-  `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
-  `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
+  `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`work_data_id`, `tool_id`)
 );
 
@@ -226,42 +226,104 @@ CREATE INDEX `Work_data_tool_tool_id_idx` ON `work_data_tools` (`tool_id`);
 
 CREATE INDEX `Work_data_tool_work_data_id_idx` ON `work_data_tools` (`work_data_id`);
 
-ALTER TABLE `bookmarks` ADD CONSTRAINT `Bookmark_work_id_fkey` FOREIGN KEY (`work_id`) REFERENCES `works` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `bookmarks`
+ADD
+  CONSTRAINT `Bookmark_work_id_fkey` FOREIGN KEY (`work_id`) REFERENCES `works` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `bookmarks` ADD CONSTRAINT `Bookmark_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `bookmarks`
+ADD
+  CONSTRAINT `Bookmark_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `users` ADD CONSTRAINT `User_affiliations_id_fkey` FOREIGN KEY (`affiliation_id`) REFERENCES `affiliations` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE
+  `users`
+ADD
+  CONSTRAINT `User_affiliations_id_fkey` FOREIGN KEY (`affiliation_id`) REFERENCES `affiliations` (`id`) ON DELETE
+SET
+  NULL ON UPDATE CASCADE;
 
-ALTER TABLE `user_occupations` ADD CONSTRAINT `User_occupation_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `user_occupations`
+ADD
+  CONSTRAINT `User_occupation_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `user_occupations` ADD CONSTRAINT `User_occupation_occupation_id_fkey` FOREIGN KEY (`occupation_id`) REFERENCES `occupations` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `user_occupations`
+ADD
+  CONSTRAINT `User_occupation_occupation_id_fkey` FOREIGN KEY (`occupation_id`) REFERENCES `occupations` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `user_urls` ADD CONSTRAINT `User_url_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `user_urls`
+ADD
+  CONSTRAINT `User_url_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `works` ADD CONSTRAINT `Work_event_id_fkey` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `works`
+ADD
+  CONSTRAINT `Work_event_id_fkey` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `work_data` ADD CONSTRAINT `Work_data_work_id_fkey` FOREIGN KEY (`work_id`) REFERENCES `works` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `work_data`
+ADD
+  CONSTRAINT `Work_data_work_id_fkey` FOREIGN KEY (`work_id`) REFERENCES `works` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `work_data_genres` ADD CONSTRAINT `Work_data_genre_work_data_id_fkey` FOREIGN KEY (`work_data_id`) REFERENCES `work_data` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `work_data_genres`
+ADD
+  CONSTRAINT `Work_data_genre_work_data_id_fkey` FOREIGN KEY (`work_data_id`) REFERENCES `work_data` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `work_data_genres` ADD CONSTRAINT `Work_data_genre_genre_id_fkey` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `work_data_genres`
+ADD
+  CONSTRAINT `Work_data_genre_genre_id_fkey` FOREIGN KEY (`genre_id`) REFERENCES `genres` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `work_data_technologies` ADD CONSTRAINT `Work_data_technology_work_data_id_fkey` FOREIGN KEY (`work_data_id`) REFERENCES `work_data` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `work_data_technologies`
+ADD
+  CONSTRAINT `Work_data_technology_work_data_id_fkey` FOREIGN KEY (`work_data_id`) REFERENCES `work_data` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `work_data_technologies` ADD CONSTRAINT `Work_data_technology_technology_id_fkey` FOREIGN KEY (`technology_id`) REFERENCES `technologies` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `work_data_technologies`
+ADD
+  CONSTRAINT `Work_data_technology_technology_id_fkey` FOREIGN KEY (`technology_id`) REFERENCES `technologies` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `work_data_users` ADD CONSTRAINT `Work_data_user_work_data_id_fkey` FOREIGN KEY (`work_data_id`) REFERENCES `work_data` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `work_data_users`
+ADD
+  CONSTRAINT `Work_data_user_work_data_id_fkey` FOREIGN KEY (`work_data_id`) REFERENCES `work_data` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `work_data_users` ADD CONSTRAINT `Work_data_user_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `work_data_users`
+ADD
+  CONSTRAINT `Work_data_user_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `event_user_authorities` ADD CONSTRAINT `Event_user_authority_event_id_fkey` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `event_user_authorities`
+ADD
+  CONSTRAINT `Event_user_authority_event_id_fkey` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `event_user_authorities` ADD CONSTRAINT `Event_user_authority_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `event_user_authorities`
+ADD
+  CONSTRAINT `Event_user_authority_user_id_fkey` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `event_user_authorities` ADD CONSTRAINT `Event_user_authority_authority_id_fkey` FOREIGN KEY (`authority_id`) REFERENCES `authorities` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `event_user_authorities`
+ADD
+  CONSTRAINT `Event_user_authority_authority_id_fkey` FOREIGN KEY (`authority_id`) REFERENCES `authorities` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `work_data_images` ADD CONSTRAINT `Work_data_image_work_data_id_fkey` FOREIGN KEY (`work_data_id`) REFERENCES `work_data` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `work_data_images`
+ADD
+  CONSTRAINT `Work_data_image_work_data_id_fkey` FOREIGN KEY (`work_data_id`) REFERENCES `work_data` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `work_data_tools` ADD CONSTRAINT `Work_data_tool_work_data_id_fkey` FOREIGN KEY (`work_data_id`) REFERENCES `work_data` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `work_data_tools`
+ADD
+  CONSTRAINT `Work_data_tool_work_data_id_fkey` FOREIGN KEY (`work_data_id`) REFERENCES `work_data` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
 
-ALTER TABLE `work_data_tools` ADD CONSTRAINT `Work_data_tool_tool_id_fkey` FOREIGN KEY (`tool_id`) REFERENCES `tools` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE
+  `work_data_tools`
+ADD
+  CONSTRAINT `Work_data_tool_tool_id_fkey` FOREIGN KEY (`tool_id`) REFERENCES `tools` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
