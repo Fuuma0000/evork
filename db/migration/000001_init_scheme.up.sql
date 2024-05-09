@@ -111,7 +111,6 @@ CREATE TABLE `work_data` (
   `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `work_id` INTEGER UNSIGNED NOT NULL,
   `name` VARCHAR(100) NOT NULL,
-  `catch_copy` VARCHAR(100) NOT NULL,
   `description` VARCHAR(500) NOT NULL,
   `work_url` VARCHAR(255),
   `movie_url` VARCHAR(255),
