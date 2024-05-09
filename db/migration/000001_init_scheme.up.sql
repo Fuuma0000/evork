@@ -46,6 +46,7 @@ CREATE TABLE `occupations` (
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+# 権限テーブル
 CREATE TABLE `authorities` (
   `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
@@ -53,6 +54,7 @@ CREATE TABLE `authorities` (
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+# 使用技術テーブル
 CREATE TABLE `technologies` (
   `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
@@ -69,7 +71,7 @@ CREATE TABLE `users` (
   `enrollment_year` INTEGER NOT NULL,
   `graduation_year` INTEGER NOT NULL,
   `is_job_hunt_completed` BOOLEAN DEFAULT false,
-  `self_introduction` TEXT,
+  `self_introduction` TEXT NOT NULL DEFAULT '',
   `icon_url` VARCHAR(255),
   `show_profile_in_public_event` BOOLEAN DEFAULT false,
   `show_profile_in_shared_url` BOOLEAN DEFAULT false,
