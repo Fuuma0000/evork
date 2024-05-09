@@ -22,7 +22,7 @@ CREATE TABLE `events` (
   `is_requires_password` bool DEFAULT false,
   `start_at` TIMESTAMP,
   `end_at` TIMESTAMP,
-  `need_proofreading` bool DEFAULT false,
+  `need_proofreading` bool DEFAULT false, # 校閲が必要かどうか
   `icon_url` VARCHAR(255),
   `description` TEXT,
   `detail` Text,
@@ -67,7 +67,7 @@ CREATE TABLE `users` (
   `firebase_uid` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
   `username` VARCHAR(50) NOT NULL,
-  `affiliation_id` INTEGER UNSIGNED,
+  `affiliation_id` INTEGER UNSIGNED NOT NULL DEFAULT 1,
   `enrollment_year` INTEGER NOT NULL,
   `graduation_year` INTEGER NOT NULL,
   `is_job_hunt_completed` BOOLEAN DEFAULT false,
