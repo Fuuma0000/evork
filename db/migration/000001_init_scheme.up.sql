@@ -73,8 +73,8 @@ CREATE TABLE `users` (
   `is_job_hunt_completed` BOOLEAN DEFAULT false,
   `self_introduction` TEXT NOT NULL DEFAULT '',
   `icon_url` VARCHAR(255),
-  `show_profile_in_public_event` BOOLEAN DEFAULT false,
-  `show_profile_in_shared_url` BOOLEAN DEFAULT false,
+  `show_profile_in_public_event` BOOLEAN NOT NULL DEFAULT false,
+  `show_profile_in_shared_url` BOOLEAN NOT NULL DEFAULT false,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -145,7 +145,7 @@ CREATE TABLE `work_data_technologies` (
 CREATE TABLE `work_data_users` (
   `work_data_id` INTEGER UNSIGNED NOT NULL,
   `user_id` INTEGER UNSIGNED NOT NULL,
-  `role_explanation` VARCHAR(50),
+  `role_explanation` VARCHAR(50) NOT NULL DEFAULT '',
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`work_data_id`, `user_id`)
@@ -173,8 +173,8 @@ CREATE TABLE `event_user_authorities` (
 CREATE TABLE `work_data_images` (
   `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `work_data_id` INTEGER UNSIGNED NOT NULL,
-  `url` VARCHAR(255),
-  `order` TINYINT,
+  `url` VARCHAR(255) NOT NULL,
+  `order` TINYINT NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
