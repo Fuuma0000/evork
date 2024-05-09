@@ -1,14 +1,14 @@
 # ブックマークテーブル (ユーザーが作品をブックマークする)
 CREATE TABLE `bookmarks` (
-  `user_id` INTEGER NOT NULL,
-  `work_id` INTEGER NOT NULL,
+  `user_id` INTEGER UNSIGNED NOT NULL,
+  `work_id` INTEGER UNSIGNED NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
 );
 
 # 所属テーブル
 CREATE TABLE `affiliations` (
-  `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
@@ -16,7 +16,7 @@ CREATE TABLE `affiliations` (
 
 # イベントテーブル
 CREATE TABLE `events` (
-  `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(50) NOT NULL,
   `password` Varchar(255),
   `is_requires_password` bool DEFAULT false,
@@ -32,7 +32,7 @@ CREATE TABLE `events` (
 
 # ジャンルテーブル
 CREATE TABLE `genres` (
-  `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
@@ -40,32 +40,32 @@ CREATE TABLE `genres` (
 
 # 職種テーブル
 CREATE TABLE `occupations` (
-  `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
 );
 
 CREATE TABLE `authorities` (
-  `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
 );
 
 CREATE TABLE `technologies` (
-  `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
 );
 
 CREATE TABLE `users` (
-  `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `firebase_uid` VARCHAR(255) NOT NULL,
   `email` VARCHAR(255) NOT NULL,
-  `username` VARCHAR(50),
-  `affiliation_id` INTEGER,
+  `username` VARCHAR(50) NOT NULL,
+  `affiliation_id` INTEGER UNSIGNED,
   `enrollment_year` INTEGER,
   `graduation_year` INTEGER,
   `is_job_hunt_completed` BOOLEAN DEFAULT false,
@@ -79,8 +79,8 @@ CREATE TABLE `users` (
 
 # ユーザーと職種の中間テーブル
 CREATE TABLE `user_occupations` (
-  `user_id` INTEGER NOT NULL,
-  `occupation_id` INTEGER NOT NULL,
+  `user_id` INTEGER UNSIGNED NOT NULL,
+  `occupation_id` INTEGER UNSIGNED NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   PRIMARY KEY (`user_id`, `occupation_id`)
@@ -88,8 +88,8 @@ CREATE TABLE `user_occupations` (
 
 # ユーザは複数のURLを持つことができる
 CREATE TABLE `user_urls` (
-  `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `user_id` INTEGER NOT NULL,
+  `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `user_id` INTEGER UNSIGNED NOT NULL,
   `url_name` VARCHAR(30) NOT NULL,
   `url` VARCHAR(255) NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
@@ -98,16 +98,16 @@ CREATE TABLE `user_urls` (
 
 # 作品テーブル
 CREATE TABLE `works` (
-  `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `event_id` INTEGER NOT NULL,
+  `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `event_id` INTEGER UNSIGNED NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
 );
 
 # 作品データテーブル
 CREATE TABLE `work_data` (
-  `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `work_id` INTEGER NOT NULL,
+  `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `work_id` INTEGER UNSIGNED NOT NULL,
   `name` VARCHAR(100) NOT NULL,
   `catch_copy` VARCHAR(100) NOT NULL,
   `description` VARCHAR(500) NOT NULL,
@@ -123,8 +123,8 @@ CREATE TABLE `work_data` (
 
 # 作品データとジャンルの中間テーブル
 CREATE TABLE `work_data_genres` (
-  `work_data_id` INTEGER NOT NULL,
-  `genre_id` INTEGER NOT NULL,
+  `work_data_id` INTEGER UNSIGNED NOT NULL,
+  `genre_id` INTEGER UNSIGNED NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   PRIMARY KEY (`work_data_id`, `genre_id`)
@@ -132,8 +132,8 @@ CREATE TABLE `work_data_genres` (
 
 # 作品データと技術の中間テーブル
 CREATE TABLE `work_data_technologies` (
-  `work_data_id` INTEGER NOT NULL,
-  `technology_id` INTEGER NOT NULL,
+  `work_data_id` INTEGER UNSIGNED NOT NULL,
+  `technology_id` INTEGER UNSIGNED NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   PRIMARY KEY (`work_data_id`, `technology_id`)
@@ -141,8 +141,8 @@ CREATE TABLE `work_data_technologies` (
 
 # 作品データとユーザーの中間テーブル
 CREATE TABLE `work_data_users` (
-  `work_data_id` INTEGER NOT NULL,
-  `user_id` INTEGER NOT NULL,
+  `work_data_id` INTEGER UNSIGNED NOT NULL,
+  `user_id` INTEGER UNSIGNED NOT NULL,
   `role_explanation` VARCHAR(50),
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
@@ -151,7 +151,7 @@ CREATE TABLE `work_data_users` (
 
 # 使用ツールテーブル
 CREATE TABLE `tools` (
-  `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(30) NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0))
@@ -159,9 +159,9 @@ CREATE TABLE `tools` (
 
 # イベントとユーザと権限の中間テーブル
 CREATE TABLE `event_user_authorities` (
-  `event_id` INTEGER NOT NULL,
-  `user_id` INTEGER NOT NULL,
-  `authority_id` INTEGER NOT NULL,
+  `event_id` INTEGER UNSIGNED NOT NULL,
+  `user_id` INTEGER UNSIGNED NOT NULL,
+  `authority_id` INTEGER UNSIGNED NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   PRIMARY KEY (`event_id`, `user_id`, `authority_id`)
@@ -169,8 +169,8 @@ CREATE TABLE `event_user_authorities` (
 
 # 作品データと画像の中間テーブル
 CREATE TABLE `work_data_images` (
-  `id` INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT,
-  `work_data_id` INTEGER NOT NULL,
+  `id` INTEGER UNSIGNED PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `work_data_id` INTEGER UNSIGNED NOT NULL,
   `url` VARCHAR(255),
   `order` TINYINT,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
@@ -179,8 +179,8 @@ CREATE TABLE `work_data_images` (
 
 # 作品データと使用ツールの中間テーブル
 CREATE TABLE `work_data_tools` (
-  `work_data_id` INTEGER NOT NULL,
-  `tool_id` INTEGER NOT NULL,
+  `work_data_id` INTEGER UNSIGNED NOT NULL,
+  `tool_id` INTEGER UNSIGNED NOT NULL,
   `created_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   `updated_at` DATETIME(0) DEFAULT (CURRENT_TIMESTAMP(0)),
   PRIMARY KEY (`work_data_id`, `tool_id`)
