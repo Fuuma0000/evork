@@ -73,3 +73,11 @@ func TestCreateUser(t *testing.T) {
 	require.NotZero(t, user.ID)
 
 }
+
+func TestGetUserByEmail(t *testing.T) {
+	user1 := createRandomUser(t)
+	user2, err := testQueries.GetUserByEmail(context.Background(), user1.Email)
+
+	require.NoError(t, err)
+	require.Equal(t, user1, user2)
+}
