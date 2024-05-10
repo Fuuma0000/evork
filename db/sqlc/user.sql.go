@@ -11,25 +11,36 @@ import (
 )
 
 const createUser = `-- name: CreateUser :execresult
-INSERT INTO users (
-  firebase_uid, email, username, affiliation_id, enrollment_year, graduation_year, is_job_hunt_completed, self_introduction, icon_url, show_profile_in_public_event, show_profile_in_shared_url
-) VALUES (
-  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-)
+INSERT INTO
+  users (
+    firebase_uid,
+    email,
+    username,
+    affiliation_id,
+    enrollment_year,
+    graduation_year,
+    is_job_hunt_completed,
+    self_introduction,
+    icon_url,
+    show_profile_in_public_event,
+    show_profile_in_shared_url
+  )
+VALUES
+  (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 `
 
 type CreateUserParams struct {
 	FirebaseUid              string         `json:"firebase_uid"`
 	Email                    string         `json:"email"`
-	Username                 sql.NullString `json:"username"`
-	AffiliationID            sql.NullInt32  `json:"affiliation_id"`
-	EnrollmentYear           sql.NullInt32  `json:"enrollment_year"`
-	GraduationYear           sql.NullInt32  `json:"graduation_year"`
-	IsJobHuntCompleted       sql.NullBool   `json:"is_job_hunt_completed"`
-	SelfIntroduction         sql.NullString `json:"self_introduction"`
+	Username                 string         `json:"username"`
+	AffiliationID            uint32         `json:"affiliation_id"`
+	EnrollmentYear           int32          `json:"enrollment_year"`
+	GraduationYear           int32          `json:"graduation_year"`
+	IsJobHuntCompleted       bool           `json:"is_job_hunt_completed"`
+	SelfIntroduction         string         `json:"self_introduction"`
 	IconUrl                  sql.NullString `json:"icon_url"`
-	ShowProfileInPublicEvent sql.NullBool   `json:"show_profile_in_public_event"`
-	ShowProfileInSharedUrl   sql.NullBool   `json:"show_profile_in_shared_url"`
+	ShowProfileInPublicEvent bool           `json:"show_profile_in_public_event"`
+	ShowProfileInSharedUrl   bool           `json:"show_profile_in_shared_url"`
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (sql.Result, error) {
@@ -49,21 +60,29 @@ func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (sql.Res
 }
 
 const deleteUser = `-- name: DeleteUser :exec
-DELETE FROM users
-WHERE id = ?
+DELETE FROM
+  users
+WHERE
+  id = ?
 `
 
-func (q *Queries) DeleteUser(ctx context.Context, id int32) error {
+func (q *Queries) DeleteUser(ctx context.Context, id uint32) error {
 	_, err := q.db.ExecContext(ctx, deleteUser, id)
 	return err
 }
 
 const getUser = `-- name: GetUser :one
-SELECT id, firebase_uid, email, username, affiliation_id, enrollment_year, graduation_year, is_job_hunt_completed, self_introduction, icon_url, show_profile_in_public_event, show_profile_in_shared_url, created_at, updated_at FROM users
-WHERE id = ? LIMIT 1
+SELECT
+  id, firebase_uid, email, username, affiliation_id, enrollment_year, graduation_year, is_job_hunt_completed, self_introduction, icon_url, show_profile_in_public_event, show_profile_in_shared_url, created_at, updated_at
+FROM
+  users
+WHERE
+  id = ?
+LIMIT
+  1
 `
 
-func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
+func (q *Queries) GetUser(ctx context.Context, id uint32) (User, error) {
 	row := q.db.QueryRowContext(ctx, getUser, id)
 	var i User
 	err := row.Scan(
@@ -85,8 +104,44 @@ func (q *Queries) GetUser(ctx context.Context, id int32) (User, error) {
 	return i, err
 }
 
+const getUserByEmail = `-- name: GetUserByEmail :one
+SELECT
+  id, firebase_uid, email, username, affiliation_id, enrollment_year, graduation_year, is_job_hunt_completed, self_introduction, icon_url, show_profile_in_public_event, show_profile_in_shared_url, created_at, updated_at
+FROM
+  users
+WHERE
+  email = ?
+LIMIT
+  1
+`
+
+func (q *Queries) GetUserByEmail(ctx context.Context, email string) (User, error) {
+	row := q.db.QueryRowContext(ctx, getUserByEmail, email)
+	var i User
+	err := row.Scan(
+		&i.ID,
+		&i.FirebaseUid,
+		&i.Email,
+		&i.Username,
+		&i.AffiliationID,
+		&i.EnrollmentYear,
+		&i.GraduationYear,
+		&i.IsJobHuntCompleted,
+		&i.SelfIntroduction,
+		&i.IconUrl,
+		&i.ShowProfileInPublicEvent,
+		&i.ShowProfileInSharedUrl,
+		&i.CreatedAt,
+		&i.UpdatedAt,
+	)
+	return i, err
+}
+
 const listUsers = `-- name: ListUsers :many
-SELECT id, firebase_uid, email, username, affiliation_id, enrollment_year, graduation_year, is_job_hunt_completed, self_introduction, icon_url, show_profile_in_public_event, show_profile_in_shared_url, created_at, updated_at FROM users
+SELECT
+  id, firebase_uid, email, username, affiliation_id, enrollment_year, graduation_year, is_job_hunt_completed, self_introduction, icon_url, show_profile_in_public_event, show_profile_in_shared_url, created_at, updated_at
+FROM
+  users
 `
 
 func (q *Queries) ListUsers(ctx context.Context) ([]User, error) {
