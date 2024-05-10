@@ -23,3 +23,5 @@ go.work
 db/data
 db/log
 tmp
+
+.vscode
