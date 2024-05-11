@@ -6,163 +6,163 @@ package db
 
 import (
 	"database/sql"
+	"time"
 )
 
 type Affiliation struct {
-	ID        int32        `json:"id"`
-	Name      string       `json:"name"`
-	CreatedAt sql.NullTime `json:"created_at"`
-	UpdatedAt sql.NullTime `json:"updated_at"`
+	ID        uint32    `json:"id"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type Authority struct {
-	ID        int32        `json:"id"`
-	Name      string       `json:"name"`
-	CreatedAt sql.NullTime `json:"created_at"`
-	UpdatedAt sql.NullTime `json:"updated_at"`
+	ID        uint32    `json:"id"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type Bookmark struct {
-	WorkID    int32        `json:"work_id"`
-	UserID    int32        `json:"user_id"`
-	CreatedAt sql.NullTime `json:"created_at"`
-	UpdatedAt sql.NullTime `json:"updated_at"`
+	UserID    uint32    `json:"user_id"`
+	WorkID    uint32    `json:"work_id"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type Event struct {
-	ID                 int32          `json:"id"`
+	ID                 uint32         `json:"id"`
 	Name               string         `json:"name"`
 	Password           sql.NullString `json:"password"`
-	IsRequiresPassword sql.NullBool   `json:"is_requires_password"`
+	IsRequiresPassword bool           `json:"is_requires_password"`
 	StartAt            sql.NullTime   `json:"start_at"`
 	EndAt              sql.NullTime   `json:"end_at"`
-	NeedProofreading   sql.NullBool   `json:"need_proofreading"`
+	NeedProofreading   bool           `json:"need_proofreading"`
 	IconUrl            sql.NullString `json:"icon_url"`
 	Description        sql.NullString `json:"description"`
 	Detail             sql.NullString `json:"detail"`
-	CreatedAt          sql.NullTime   `json:"created_at"`
-	UpdatedAt          sql.NullTime   `json:"updated_at"`
+	CreatedAt          time.Time      `json:"created_at"`
+	UpdatedAt          time.Time      `json:"updated_at"`
 }
 
 type EventUserAuthority struct {
-	EventID     int32        `json:"event_id"`
-	UserID      int32        `json:"user_id"`
-	AuthorityID int32        `json:"authority_id"`
-	CreatedAt   sql.NullTime `json:"created_at"`
-	UpdatedAt   sql.NullTime `json:"updated_at"`
+	EventID     uint32    `json:"event_id"`
+	UserID      uint32    `json:"user_id"`
+	AuthorityID uint32    `json:"authority_id"`
+	CreatedAt   time.Time `json:"created_at"`
+	UpdatedAt   time.Time `json:"updated_at"`
 }
 
 type Genre struct {
-	ID        int32        `json:"id"`
-	Name      string       `json:"name"`
-	CreatedAt sql.NullTime `json:"created_at"`
-	UpdatedAt sql.NullTime `json:"updated_at"`
+	ID        uint32    `json:"id"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type Occupation struct {
-	ID        int32        `json:"id"`
-	Name      string       `json:"name"`
-	CreatedAt sql.NullTime `json:"created_at"`
-	UpdatedAt sql.NullTime `json:"updated_at"`
+	ID        uint32    `json:"id"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type Technology struct {
-	ID        int32        `json:"id"`
-	Name      string       `json:"name"`
-	CreatedAt sql.NullTime `json:"created_at"`
-	UpdatedAt sql.NullTime `json:"updated_at"`
+	ID        uint32    `json:"id"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type Tool struct {
-	ID        int32        `json:"id"`
-	Name      string       `json:"name"`
-	CreatedAt sql.NullTime `json:"created_at"`
-	UpdatedAt sql.NullTime `json:"updated_at"`
+	ID        uint32    `json:"id"`
+	Name      string    `json:"name"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type User struct {
-	ID                       int32          `json:"id"`
+	ID                       uint32         `json:"id"`
 	FirebaseUid              string         `json:"firebase_uid"`
 	Email                    string         `json:"email"`
-	Username                 sql.NullString `json:"username"`
-	AffiliationID            sql.NullInt32  `json:"affiliation_id"`
-	EnrollmentYear           sql.NullInt32  `json:"enrollment_year"`
-	GraduationYear           sql.NullInt32  `json:"graduation_year"`
-	IsJobHuntCompleted       sql.NullBool   `json:"is_job_hunt_completed"`
-	SelfIntroduction         sql.NullString `json:"self_introduction"`
+	Username                 string         `json:"username"`
+	AffiliationID            uint32         `json:"affiliation_id"`
+	EnrollmentYear           int32          `json:"enrollment_year"`
+	GraduationYear           int32          `json:"graduation_year"`
+	IsJobHuntCompleted       bool           `json:"is_job_hunt_completed"`
+	SelfIntroduction         string         `json:"self_introduction"`
 	IconUrl                  sql.NullString `json:"icon_url"`
-	ShowProfileInPublicEvent sql.NullBool   `json:"show_profile_in_public_event"`
-	ShowProfileInSharedUrl   sql.NullBool   `json:"show_profile_in_shared_url"`
-	CreatedAt                sql.NullTime   `json:"created_at"`
-	UpdatedAt                sql.NullTime   `json:"updated_at"`
+	ShowProfileInPublicEvent bool           `json:"show_profile_in_public_event"`
+	ShowProfileInSharedUrl   bool           `json:"show_profile_in_shared_url"`
+	CreatedAt                time.Time      `json:"created_at"`
+	UpdatedAt                time.Time      `json:"updated_at"`
 }
 
 type UserOccupation struct {
-	UserID       int32        `json:"user_id"`
-	OccupationID int32        `json:"occupation_id"`
-	CreatedAt    sql.NullTime `json:"created_at"`
-	UpdatedAt    sql.NullTime `json:"updated_at"`
+	UserID       uint32    `json:"user_id"`
+	OccupationID uint32    `json:"occupation_id"`
+	CreatedAt    time.Time `json:"created_at"`
+	UpdatedAt    time.Time `json:"updated_at"`
 }
 
 type UserUrl struct {
-	ID        int32        `json:"id"`
-	UserID    int32        `json:"user_id"`
-	UrlName   string       `json:"url_name"`
-	Url       string       `json:"url"`
-	CreatedAt sql.NullTime `json:"created_at"`
-	UpdatedAt sql.NullTime `json:"updated_at"`
+	ID        uint32    `json:"id"`
+	UserID    uint32    `json:"user_id"`
+	UrlName   string    `json:"url_name"`
+	Url       string    `json:"url"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type Work struct {
-	ID        int32        `json:"id"`
-	EventID   int32        `json:"event_id"`
-	CreatedAt sql.NullTime `json:"created_at"`
-	UpdatedAt sql.NullTime `json:"updated_at"`
+	ID        uint32    `json:"id"`
+	EventID   uint32    `json:"event_id"`
+	CreatedAt time.Time `json:"created_at"`
+	UpdatedAt time.Time `json:"updated_at"`
 }
 
 type WorkDataGenre struct {
-	WorkDataID int32        `json:"work_data_id"`
-	GenreID    int32        `json:"genre_id"`
-	CreatedAt  sql.NullTime `json:"created_at"`
-	UpdatedAt  sql.NullTime `json:"updated_at"`
+	WorkDataID uint32    `json:"work_data_id"`
+	GenreID    uint32    `json:"genre_id"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }
 
 type WorkDataImage struct {
-	ID         int32          `json:"id"`
-	WorkDataID int32          `json:"work_data_id"`
-	Url        sql.NullString `json:"url"`
-	Order      sql.NullInt16  `json:"order"`
-	CreatedAt  sql.NullTime   `json:"created_at"`
-	UpdatedAt  sql.NullTime   `json:"updated_at"`
+	ID         uint32    `json:"id"`
+	WorkDataID uint32    `json:"work_data_id"`
+	Url        string    `json:"url"`
+	Order      int8      `json:"order"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }
 
 type WorkDataTechnology struct {
-	WorkDataID   int32        `json:"work_data_id"`
-	TechnologyID int32        `json:"technology_id"`
-	CreatedAt    sql.NullTime `json:"created_at"`
-	UpdatedAt    sql.NullTime `json:"updated_at"`
+	WorkDataID   uint32    `json:"work_data_id"`
+	TechnologyID uint32    `json:"technology_id"`
+	CreatedAt    time.Time `json:"created_at"`
+	UpdatedAt    time.Time `json:"updated_at"`
 }
 
 type WorkDataTool struct {
-	WorkDataID int32        `json:"work_data_id"`
-	ToolID     int32        `json:"tool_id"`
-	CreatedAt  sql.NullTime `json:"created_at"`
-	UpdatedAt  sql.NullTime `json:"updated_at"`
+	WorkDataID uint32    `json:"work_data_id"`
+	ToolID     uint32    `json:"tool_id"`
+	CreatedAt  time.Time `json:"created_at"`
+	UpdatedAt  time.Time `json:"updated_at"`
 }
 
 type WorkDataUser struct {
-	WorkDataID      int32          `json:"work_data_id"`
-	UserID          int32          `json:"user_id"`
-	RoleExplanation sql.NullString `json:"role_explanation"`
-	CreatedAt       sql.NullTime   `json:"created_at"`
-	UpdatedAt       sql.NullTime   `json:"updated_at"`
+	WorkDataID      uint32    `json:"work_data_id"`
+	UserID          uint32    `json:"user_id"`
+	RoleExplanation string    `json:"role_explanation"`
+	CreatedAt       time.Time `json:"created_at"`
+	UpdatedAt       time.Time `json:"updated_at"`
 }
 
 type WorkDatum struct {
-	ID               int32          `json:"id"`
-	WorkID           int32          `json:"work_id"`
+	ID               uint32         `json:"id"`
+	WorkID           uint32         `json:"work_id"`
 	Name             string         `json:"name"`
-	CatchCopy        string         `json:"catch_copy"`
 	Description      string         `json:"description"`
 	WorkUrl          sql.NullString `json:"work_url"`
 	MovieUrl         sql.NullString `json:"movie_url"`
@@ -170,6 +170,6 @@ type WorkDatum struct {
 	ThumbnailUrl     sql.NullString `json:"thumbnail_url"`
 	Detail           sql.NullString `json:"detail"`
 	IsApproved       bool           `json:"is_approved"`
-	CreatedAt        sql.NullTime   `json:"created_at"`
-	UpdatedAt        sql.NullTime   `json:"updated_at"`
+	CreatedAt        time.Time      `json:"created_at"`
+	UpdatedAt        time.Time      `json:"updated_at"`
 }

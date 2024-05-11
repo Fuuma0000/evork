@@ -10,9 +10,31 @@ import (
 )
 
 type Querier interface {
+	AddBookmark(ctx context.Context, arg AddBookmarkParams) error
+	AddTechnology(ctx context.Context, name string) error
+	AddTool(ctx context.Context, name string) error
+	CreateAffiliation(ctx context.Context, name string) (sql.Result, error)
+	CreateGenre(ctx context.Context, name string) (sql.Result, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (sql.Result, error)
-	DeleteUser(ctx context.Context, id int32) error
-	GetUser(ctx context.Context, id int32) (User, error)
+	DeleteBookmark(ctx context.Context, arg DeleteBookmarkParams) error
+	DeleteUser(ctx context.Context, id uint32) error
+	GetAffiliationById(ctx context.Context, id uint32) (GetAffiliationByIdRow, error)
+	GetGenreById(ctx context.Context, id uint32) (GetGenreByIdRow, error)
+	// 作品IDに紐づく最新の承認済みの作品データを取得する
+	GetLatestApprovedWorkDataByWorkID(ctx context.Context, workID uint32) (WorkDatum, error)
+	// 作品に紐づく未承認の作品データを取得する
+	GetUnapprovedWorkDataByWorkID(ctx context.Context, workID uint32) (WorkDatum, error)
+	GetUser(ctx context.Context, id uint32) (User, error)
+	GetUserByEmail(ctx context.Context, email string) (User, error)
+	// イベントIDから作品の一覧を取得する
+	GetWorksByEventID(ctx context.Context, eventID uint32) ([]Work, error)
+	// イベントIDから作品のイベントページ用の一覧を取得する
+	GetWorksForEventPageByEventID(ctx context.Context, eventID uint32) ([]GetWorksForEventPageByEventIDRow, error)
+	ListAffiliations(ctx context.Context) ([]ListAffiliationsRow, error)
+	ListBookmark(ctx context.Context, userID uint32) ([]Bookmark, error)
+	ListGenres(ctx context.Context) ([]ListGenresRow, error)
+	ListTechnologies(ctx context.Context) ([]Technology, error)
+	ListTools(ctx context.Context) ([]Tool, error)
 	ListUsers(ctx context.Context) ([]User, error)
 }
 
