@@ -63,11 +63,15 @@ func TestListAffiliations(t *testing.T) {
 
 	fmt.Println(affiliations)
 
-	affiliations2, err := testQueries.ListAffiliations(context.Background())
+	affiliation2, err := testQueries.ListAffiliations(context.Background())
 	require.NoError(t, err)
 
-	for i := 0; i < n; i++ {
-		require.Equal(t, affiliations[i].ID, affiliations2[i].ID)
-		require.Equal(t, affiliations[i].Name, affiliations2[i].Name)
+	require.Equal(t, n, len(affiliation2))
+
+	// データベースから取得したアフィリエーションのリストと期待されるリストが一致することを確認
+	for i, expected := range affiliations {
+		actual := affiliation2[i]
+		require.Equal(t, expected.ID, actual.ID)
+		require.Equal(t, expected.Name, actual.Name)
 	}
 }
