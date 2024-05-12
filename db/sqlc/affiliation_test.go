@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"fmt"
 	"testing"
 
 	"github.com/Fuuma0000/evork/db/util"
@@ -50,4 +51,23 @@ func TestGetAffiliationById(t *testing.T) {
 
 	require.NoError(t, err)
 	require.Equal(t, affiliation1, affiliation2)
+}
+
+func TestListAffiliations(t *testing.T) {
+	n := 10
+	var affiliations []GetAffiliationByIdRow
+	for i := 0; i < n; i++ {
+		affiliation := createRandomAffiliation(t)
+		affiliations = append(affiliations, affiliation)
+	}
+
+	fmt.Println(affiliations)
+
+	affiliations2, err := testQueries.ListAffiliations(context.Background())
+	require.NoError(t, err)
+
+	for i := 0; i < n; i++ {
+		require.Equal(t, affiliations[i].ID, affiliations2[i].ID)
+		require.Equal(t, affiliations[i].Name, affiliations2[i].Name)
+	}
 }

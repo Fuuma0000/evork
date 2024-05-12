@@ -1,3 +1,5 @@
+# 所属
+
 -- name: CreateAffiliation :execresult
 INSERT INTO
     affiliations (name)
@@ -12,3 +14,10 @@ FROM
     affiliations
 WHERE
     id = ?;
+
+-- name: ListAffiliations :many
+SELECT
+    id,
+    name
+FROM
+    affiliations;
