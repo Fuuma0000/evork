@@ -42,3 +42,39 @@ func (q *Queries) GetAffiliationById(ctx context.Context, id uint32) (GetAffilia
 	err := row.Scan(&i.ID, &i.Name)
 	return i, err
 }
+
+const listAffiliations = `-- name: ListAffiliations :many
+SELECT
+    id,
+    name
+FROM
+    affiliations
+`
+
+type ListAffiliationsRow struct {
+	ID   uint32 `json:"id"`
+	Name string `json:"name"`
+}
+
+func (q *Queries) ListAffiliations(ctx context.Context) ([]ListAffiliationsRow, error) {
+	rows, err := q.db.QueryContext(ctx, listAffiliations)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []ListAffiliationsRow{}
+	for rows.Next() {
+		var i ListAffiliationsRow
+		if err := rows.Scan(&i.ID, &i.Name); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
+}
