@@ -2,18 +2,23 @@ package api
 
 import (
 	db "github.com/Fuuma0000/evork/db/sqlc"
+	"github.com/Fuuma0000/evork/firebase"
 	"github.com/gin-gonic/gin"
 )
 
 type Server struct {
-	router  *gin.Engine
-	queries *db.Queries
+	router   *gin.Engine
+	queries  *db.Queries
+	firebase *firebase.App
 }
 
-func NewServer(queries *db.Queries) *Server {
+func NewServer(queries *db.Queries, firebase *firebase.App) *Server {
 	router := gin.Default()
-	server := &Server{router: router, queries: queries}
+	server := &Server{router: router, queries: queries, firebase: firebase}
+
 	router.GET("/affiliation/:id", server.getAffiliation)
+	router.POST("/auth/login", server.createUser)
+
 	server.router = router
 	return server
 }
