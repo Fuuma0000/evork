@@ -25,3 +25,5 @@ db/log
 tmp
 
 .vscode
+
+serviceAccountKey.json
